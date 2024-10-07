@@ -1,0 +1,92 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MovieRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.devsuperior.dsmovie.repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: MovieRepository (com.devsuperior.dsmovie.repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$1aS4S0Uy</td>
+  </tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$1aS4S0Uy$auxiliary$22Ts63ar</td>
+  </tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$1aS4S0Uy$auxiliary$Hxe5Xstd</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.devsuperior.dsmovie.repositories;
+&nbsp;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;
+&nbsp;import com.devsuperior.dsmovie.entities.MovieEntity;
+&nbsp;
+&nbsp;public interface MovieRepository extends JpaRepository&lt;MovieEntity, Long&gt; {
+&nbsp;	
+&nbsp;	@Query(&quot;SELECT obj FROM MovieEntity obj &quot;
+&nbsp;			+ &quot;WHERE UPPER(obj.title) LIKE UPPER(CONCAT(&#39;%&#39;, :title, &#39;%&#39;))&quot;)
+&nbsp;    Page&lt;MovieEntity&gt; searchByTitle(String title, Pageable pageable);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-07 14:39</div>
+</div>
+</body>
+</html>

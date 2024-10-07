@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MovieService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.devsuperior.dsmovie.services</a>
+</div>
+
+<h1>Coverage Summary for Class: MovieService (com.devsuperior.dsmovie.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MovieService</td>
+<td class="coverageStat">
+  <span class="percent">
+    14,3%
+  </span>
+  <span class="absValue">
+    (1/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4%
+  </span>
+  <span class="absValue">
+    (1/25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MovieService$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    14,3%
+  </span>
+  <span class="absValue">
+    (1/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4%
+  </span>
+  <span class="absValue">
+    (1/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.devsuperior.dsmovie.services;
+&nbsp;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.dao.DataIntegrityViolationException;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import com.devsuperior.dsmovie.dto.MovieDTO;
+&nbsp;import com.devsuperior.dsmovie.entities.MovieEntity;
+&nbsp;import com.devsuperior.dsmovie.repositories.MovieRepository;
+&nbsp;import com.devsuperior.dsmovie.services.exceptions.DatabaseException;
+&nbsp;import com.devsuperior.dsmovie.services.exceptions.ResourceNotFoundException;
+&nbsp;
+&nbsp;import jakarta.persistence.EntityNotFoundException;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class MovieService {</b>
+&nbsp;
+&nbsp;	@Autowired
+&nbsp;	private MovieRepository repository;
+&nbsp;
+&nbsp;	@Transactional(readOnly = true)
+&nbsp;	public Page&lt;MovieDTO&gt; findAll(String title, Pageable pageable) {
+<b class="nc">&nbsp;		Page&lt;MovieEntity&gt; result = repository.searchByTitle(title, pageable);</b>
+<b class="nc">&nbsp;		return result.map(x -&gt; new MovieDTO(x));</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Transactional(readOnly = true)
+&nbsp;	public MovieDTO findById(Long id) {
+<b class="nc">&nbsp;		MovieEntity result = repository.findById(id)</b>
+<b class="nc">&nbsp;				.orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Recurso não encontrado&quot;));</b>
+<b class="nc">&nbsp;		return new MovieDTO(result);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Transactional
+&nbsp;	public MovieDTO insert(MovieDTO dto) {
+<b class="nc">&nbsp;		MovieEntity entity = new MovieEntity();</b>
+<b class="nc">&nbsp;		copyDtoToEntity(dto, entity);</b>
+<b class="nc">&nbsp;		entity = repository.save(entity);</b>
+<b class="nc">&nbsp;		return new MovieDTO(entity);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Transactional
+&nbsp;	public MovieDTO update(Long id, MovieDTO dto) {
+&nbsp;		try {
+<b class="nc">&nbsp;			MovieEntity entity = repository.getReferenceById(id);</b>
+<b class="nc">&nbsp;			copyDtoToEntity(dto, entity);</b>
+<b class="nc">&nbsp;			entity = repository.save(entity);</b>
+<b class="nc">&nbsp;			return new MovieDTO(entity);</b>
+<b class="nc">&nbsp;		} catch (EntityNotFoundException e) {</b>
+<b class="nc">&nbsp;			throw new ResourceNotFoundException(&quot;Recurso não encontrado&quot;);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	public void delete(Long id) {
+<b class="nc">&nbsp;		if (!repository.existsById(id))</b>
+<b class="nc">&nbsp;			throw new ResourceNotFoundException(&quot;Recurso não encontrado&quot;);</b>
+&nbsp;		try {
+<b class="nc">&nbsp;			repository.deleteById(id);</b>
+<b class="nc">&nbsp;		} catch (DataIntegrityViolationException e) {</b>
+<b class="nc">&nbsp;			throw new DatabaseException(&quot;Falha de integridade referencial&quot;);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;	private void copyDtoToEntity(MovieDTO dto, MovieEntity entity) {
+<b class="nc">&nbsp;		entity.setTitle(dto.getTitle());</b>
+<b class="nc">&nbsp;		entity.setScore(dto.getScore());</b>
+<b class="nc">&nbsp;		entity.setCount(dto.getCount());</b>
+<b class="nc">&nbsp;		entity.setImage(dto.getImage());</b>
+&nbsp;	}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-10-07 14:39</div>
+</div>
+</body>
+</html>
