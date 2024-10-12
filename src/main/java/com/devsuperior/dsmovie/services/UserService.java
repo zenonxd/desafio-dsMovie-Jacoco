@@ -23,15 +23,15 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private CustomUserUtil userUtil;
 
-	public UserEntity authenticated() {
-		try {
-			String username = userUtil.getLoggedUsername();
-			return repository.findByUsername(username).get();
+		public UserEntity authenticated() {
+			try {
+				String username = userUtil.getLoggedUsername();
+				return repository.findByUsername(username).get();
+			}
+			catch (Exception e) {
+				throw new UsernameNotFoundException("Invalid user");
+			}
 		}
-		catch (Exception e) {
-			throw new UsernameNotFoundException("Invalid user");
-		}
-	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
