@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > MovieRepository</title>
+  <title>Coverage Report > ScoreRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.devsuperior.dsmovie.repositories</a>
 </div>
 
-<h1>Coverage Summary for Class: MovieRepository (com.devsuperior.dsmovie.repositories)</h1>
+<h1>Coverage Summary for Class: ScoreRepository (com.devsuperior.dsmovie.repositories)</h1>
 
 <table class="coverageStats">
 
@@ -30,13 +30,13 @@ Current scope:     <a href="../../index.html">all classes</a>
   <th class="name">Class</th>
 </tr>
   <tr>
-    <td class="name">MovieRepository$MockitoMock$5QfrLrOw</td>
+    <td class="name">ScoreRepository$MockitoMock$OEfgVI3A</td>
   </tr>
   <tr>
-    <td class="name">MovieRepository$MockitoMock$5QfrLrOw$auxiliary$PCPKNrht</td>
+    <td class="name">ScoreRepository$MockitoMock$OEfgVI3A$auxiliary$3Mr1bb9q</td>
   </tr>
   <tr>
-    <td class="name">MovieRepository$MockitoMock$5QfrLrOw$auxiliary$U7bI5H9W</td>
+    <td class="name">ScoreRepository$MockitoMock$OEfgVI3A$auxiliary$z2uqbEKU</td>
   </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
@@ -50,18 +50,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.devsuperior.dsmovie.repositories;
 &nbsp;
-&nbsp;import org.springframework.data.domain.Page;
-&nbsp;import org.springframework.data.domain.Pageable;
 &nbsp;import org.springframework.data.jpa.repository.JpaRepository;
-&nbsp;import org.springframework.data.jpa.repository.Query;
 &nbsp;
-&nbsp;import com.devsuperior.dsmovie.entities.MovieEntity;
+&nbsp;import com.devsuperior.dsmovie.entities.ScoreEntity;
+&nbsp;import com.devsuperior.dsmovie.entities.ScoreEntityPK;
 &nbsp;
-&nbsp;public interface MovieRepository extends JpaRepository&lt;MovieEntity, Long&gt; {
-&nbsp;	
-&nbsp;	@Query(&quot;SELECT obj FROM MovieEntity obj &quot;
-&nbsp;			+ &quot;WHERE UPPER(obj.title) LIKE UPPER(CONCAT(&#39;%&#39;, :title, &#39;%&#39;))&quot;)
-&nbsp;    Page&lt;MovieEntity&gt; searchByTitle(String title, Pageable pageable);
+&nbsp;public interface ScoreRepository extends JpaRepository&lt;ScoreEntity, ScoreEntityPK&gt; {
+&nbsp;
 &nbsp;}
 </code>
 </pre>

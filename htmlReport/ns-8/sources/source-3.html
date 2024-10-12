@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33,3%
+    100%
   </span>
   <span class="absValue">
-    (1/3)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/4)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    7,1%
+    100%
   </span>
   <span class="absValue">
-    (1/14)
+    (14/14)
   </span>
 </td>
 </tr>
@@ -112,32 +112,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;	@Autowired
 &nbsp;	private CustomUserUtil userUtil;
 &nbsp;
-&nbsp;	public UserEntity authenticated() {
-&nbsp;		try {
-<b class="nc">&nbsp;			String username = userUtil.getLoggedUsername();</b>
-<b class="nc">&nbsp;			return repository.findByUsername(username).get();</b>
+&nbsp;		public UserEntity authenticated() {
+&nbsp;			try {
+<b class="fc">&nbsp;				String username = userUtil.getLoggedUsername();</b>
+<b class="fc">&nbsp;				return repository.findByUsername(username).get();</b>
+&nbsp;			}
+<b class="fc">&nbsp;			catch (Exception e) {</b>
+<b class="fc">&nbsp;				throw new UsernameNotFoundException(&quot;Invalid user&quot;);</b>
+&nbsp;			}
 &nbsp;		}
-<b class="nc">&nbsp;		catch (Exception e) {</b>
-<b class="nc">&nbsp;			throw new UsernameNotFoundException(&quot;Invalid user&quot;);</b>
-&nbsp;		}
-&nbsp;	}
 &nbsp;	
 &nbsp;	@Override
 &nbsp;	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 &nbsp;		
-<b class="nc">&nbsp;		List&lt;UserDetailsProjection&gt; result = repository.searchUserAndRolesByUsername(username);</b>
-<b class="nc">&nbsp;		if (result.size() == 0) {</b>
-<b class="nc">&nbsp;			throw new UsernameNotFoundException(&quot;Email not found&quot;);</b>
+<b class="fc">&nbsp;		List&lt;UserDetailsProjection&gt; result = repository.searchUserAndRolesByUsername(username);</b>
+<b class="fc">&nbsp;		if (result.size() == 0) {</b>
+<b class="fc">&nbsp;			throw new UsernameNotFoundException(&quot;Email not found&quot;);</b>
 &nbsp;		}
 &nbsp;		
-<b class="nc">&nbsp;		UserEntity user = new UserEntity();</b>
-<b class="nc">&nbsp;		user.setUsername(result.get(0).getUsername());</b>
-<b class="nc">&nbsp;		user.setPassword(result.get(0).getPassword());</b>
-<b class="nc">&nbsp;		for (UserDetailsProjection projection : result) {</b>
-<b class="nc">&nbsp;			user.addRole(new RoleEntity(projection.getRoleId(), projection.getAuthority()));</b>
+<b class="fc">&nbsp;		UserEntity user = new UserEntity();</b>
+<b class="fc">&nbsp;		user.setUsername(result.get(0).getUsername());</b>
+<b class="fc">&nbsp;		user.setPassword(result.get(0).getPassword());</b>
+<b class="fc">&nbsp;		for (UserDetailsProjection projection : result) {</b>
+<b class="fc">&nbsp;			user.addRole(new RoleEntity(projection.getRoleId(), projection.getAuthority()));</b>
 &nbsp;		}
 &nbsp;		
-<b class="nc">&nbsp;		return user;</b>
+<b class="fc">&nbsp;		return user;</b>
 &nbsp;	}
 &nbsp;}
 </code>
@@ -163,7 +163,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-07 14:39</div>
+    <div style="float:right;">generated on 2024-10-12 16:19</div>
 </div>
 </body>
 </html>

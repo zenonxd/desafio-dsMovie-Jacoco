@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > UserRepository</title>
+  <title>Coverage Report > MovieRepository</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,16 +22,25 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.devsuperior.dsmovie.repositories</a>
 </div>
 
-<h1>Coverage Summary for Class: UserRepository (com.devsuperior.dsmovie.repositories)</h1>
+<h1>Coverage Summary for Class: MovieRepository (com.devsuperior.dsmovie.repositories)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 </tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$i0FUqwZY</td>
+  </tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$i0FUqwZY$auxiliary$iUnPxms3</td>
+  </tr>
+  <tr>
+    <td class="name">MovieRepository$MockitoMock$i0FUqwZY$auxiliary$scYH97Ev</td>
+  </tr>
 <tr>
-  <td class="name">UserRepository</td>
+  <td class="name"><strong>Total</strong></td>
 </tr>
-
 </table>
 
 <br/>
@@ -41,27 +50,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package com.devsuperior.dsmovie.repositories;
 &nbsp;
-&nbsp;import java.util.List;
-&nbsp;import java.util.Optional;
-&nbsp;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
 &nbsp;import org.springframework.data.jpa.repository.JpaRepository;
 &nbsp;import org.springframework.data.jpa.repository.Query;
 &nbsp;
-&nbsp;import com.devsuperior.dsmovie.entities.UserEntity;
-&nbsp;import com.devsuperior.dsmovie.projections.UserDetailsProjection;
+&nbsp;import com.devsuperior.dsmovie.entities.MovieEntity;
 &nbsp;
-&nbsp;public interface UserRepository extends JpaRepository&lt;UserEntity, Long&gt; {
-&nbsp;
-&nbsp;	Optional&lt;UserEntity&gt; findByUsername(String username);
+&nbsp;public interface MovieRepository extends JpaRepository&lt;MovieEntity, Long&gt; {
 &nbsp;	
-&nbsp;	@Query(nativeQuery = true, value = &quot;&quot;&quot;
-&nbsp;			SELECT tb_user.username AS username, tb_user.password, tb_role.id AS roleId, tb_role.authority
-&nbsp;			FROM tb_user
-&nbsp;			INNER JOIN tb_user_role ON tb_user.id = tb_user_role.user_id
-&nbsp;			INNER JOIN tb_role ON tb_role.id = tb_user_role.role_id
-&nbsp;			WHERE tb_user.username = :username
-&nbsp;		&quot;&quot;&quot;)
-&nbsp;	List&lt;UserDetailsProjection&gt; searchUserAndRolesByUsername(String username);
+&nbsp;	@Query(&quot;SELECT obj FROM MovieEntity obj &quot;
+&nbsp;			+ &quot;WHERE UPPER(obj.title) LIKE UPPER(CONCAT(&#39;%&#39;, :title, &#39;%&#39;))&quot;)
+&nbsp;    Page&lt;MovieEntity&gt; searchByTitle(String title, Pageable pageable);
 &nbsp;}
 </code>
 </pre>
@@ -86,7 +86,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-10-07 14:39</div>
+    <div style="float:right;">generated on 2024-10-12 16:19</div>
 </div>
 </body>
 </html>
